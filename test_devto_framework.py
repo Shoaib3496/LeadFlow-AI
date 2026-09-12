@@ -1,0 +1,15 @@
+from scraper.devto.scraper import DevToScraper
+
+scraper = DevToScraper()
+
+leads = scraper.run()
+
+print(f"\nCollected {len(leads)} Dev.to leads\n")
+
+for lead in leads[:5]:
+    print("-" * 60)
+    print("Title:", lead.title)
+    print("Author:", lead.contact_name)
+    print("Source:", lead.source)
+    print("Published:", lead.posted_at)
+    print("URL:", lead.url)

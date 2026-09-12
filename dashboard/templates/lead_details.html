@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lead Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container my-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+
+            <h2>{{ lead.title }}</h2>
+
+        </div>
+
+        <div class="card-body">
+
+            <!-- ========================= -->
+            <!-- Lead Information -->
+            <!-- ========================= -->
+
+            <h4>Lead Information</h4>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th width="25%">Platform</th>
+                    <td>{{ lead.platform }}</td>
+                </tr>
+
+                <tr>
+                    <th>Lead Title</th>
+                    <td>{{ lead.title }}</td>
+                </tr>
+
+                <tr>
+                    <th>Primary Service</th>
+                    <td>{{ lead.primary_service }}</td>
+                </tr>
+
+                <tr>
+                    <th>Budget</th>
+                    <td>{{ lead.budget }}</td>
+                </tr>
+
+                <tr>
+                    <th>Source</th>
+                    <td>{{ lead.source_type }}</td>
+                </tr>
+
+            </table>
+
+            <hr>
+
+            <!-- ========================= -->
+            <!-- Company Information -->
+            <!-- ========================= -->
+
+            <h4>Company Information</h4>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th width="25%">Company Name</th>
+                    <td>{{ lead.company_name or "Not provided" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Industry</th>
+                    <td>{{ lead.industry or "Not provided" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Country</th>
+                    <td>{{ lead.country or "Not provided" }}</td>
+                </tr>
+
+                <tr>
+                    <th>Website</th>
+                    <td>
+                        {% if lead.website %}
+                            <a href="{{ lead.website }}" target="_blank">
+                                {{ lead.website }}
+                            </a>
+                        {% else %}
+                            Not provided
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>
+                        {% if lead.email %}
+                            <a href="mailto:{{ lead.email }}">
+                                {{ lead.email }}
+                            </a>
+                        {% else %}
+                            Not provided
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>LinkedIn</th>
+                    <td>
+                        {% if lead.linkedin %}
+                            <a href="{{ lead.linkedin }}" target="_blank">
+                                {{ lead.linkedin }}
+                            </a>
+                        {% else %}
+                            Not provided
+                        {% endif %}
+                    </td>
+                </tr>
+
+            </table>
+
+
+            <!-- ========================= -->
+            <!-- Edit Company Information -->
+            <!-- ========================= -->
+
+            <h5 class="mt-4">Update Company Information</h5>
+
+            <form id="companyForm">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Company Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="company_name"
+                            class="form-control"
+                            value="{{ lead.company_name or '' }}">
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Industry
+                        </label>
+
+                        <input
+                            type="text"
+                            id="industry"
+                            class="form-control"
+                            value="{{ lead.industry or '' }}">
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Country
+                        </label>
+
+                        <input
+                            type="text"
+                            id="country"
+                            class="form-control"
+                            value="{{ lead.country or '' }}">
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Website
+                        </label>
+
+                        <input
+                            type="url"
+                            id="website"
+                            class="form-control"
+                            value="{{ lead.website or '' }}">
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-control"
+                            value="{{ lead.email or '' }}">
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            LinkedIn
+                        </label>
+
+                        <input
+                            type="url"
+                            id="linkedin"
+                            class="form-control"
+                            value="{{ lead.linkedin or '' }}">
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    Save Company Information
+
+                </button>
+
+            </form>
+
+            <hr>
+
+            <!-- ========================= -->
+            <!-- Commercial Intelligence -->
+            <!-- ========================= -->
+
+            <h4>Commercial Intelligence</h4>
+
+            <table class="table table-striped">
+
+                <tr>
+                    <th>Commercial Score</th>
+                    <td>{{ lead.commercial_score }}</td>
+                </tr>
+
+                <tr>
+                    <th>Priority</th>
+                    <td>{{ lead.commercial_priority }}</td>
+                </tr>
+
+                <tr>
+                    <th>Buyer Intent</th>
+                    <td>{{ lead.buyer_intent_score }}</td>
+                </tr>
+
+                <tr>
+                    <th>Business Fit</th>
+                    <td>{{ lead.business_fit_score }}</td>
+                </tr>
+
+                <tr>
+                    <th>Primary Service</th>
+                    <td>{{ lead.primary_service }}</td>
+                </tr>
+
+                <tr>
+                    <th>Budget</th>
+                    <td>{{ lead.budget }}</td>
+                </tr>
+
+            </table>
+
+            <hr>
+
+            <!-- ========================= -->
+            <!-- CRM Information -->
+            <!-- ========================= -->
+
+            <h4>CRM Information</h4>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Status</th>
+                    <td>{{ lead.crm_status }}</td>
+                </tr>
+
+                <tr>
+                    <th>Assigned To</th>
+                    <td>{{ lead.assigned_to }}</td>
+                </tr>
+
+                <tr>
+                    <th>Next Follow-up</th>
+                    <td>{{ lead.next_followup }}</td>
+                </tr>
+
+                <tr>
+                    <th>Last Contact</th>
+                    <td>{{ lead.last_contact_date }}</td>
+                </tr>
+
+            </table>
+
+            <!-- ========================= -->
+            <!-- Update Status -->
+            <!-- ========================= -->
+
+            <h5 class="mt-4">Update CRM Status</h5>
+
+            <form id="statusForm">
+
+                <select id="crm_status" class="form-select">
+
+                    <option value="New">New</option>
+                    <option value="Viewed">Viewed</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Meeting Scheduled">Meeting Scheduled</option>
+                    <option value="Proposal Sent">Proposal Sent</option>
+                    <option value="Negotiation">Negotiation</option>
+                    <option value="Won">Won</option>
+                    <option value="Lost">Lost</option>
+
+                </select>
+
+                <br>
+
+                <button type="submit" class="btn btn-success">
+
+                    Update Status
+
+                </button>
+
+            </form>
+
+            <hr>
+
+            <!-- ========================= -->
+            <!-- Notes -->
+            <!-- ========================= -->
+
+            <h5>CRM Notes</h5>
+
+            <form id="notesForm">
+
+                <textarea
+                    id="notes"
+                    class="form-control"
+                    rows="6">{{ lead.notes }}</textarea>
+
+                <br>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    Save Notes
+
+                </button>
+
+            </form>
+
+            <hr>
+
+            <!-- ========================= -->
+            <!-- Assign -->
+            <!-- ========================= -->
+
+            <h5>Assign Lead</h5>
+
+            <form id="assignForm">
+
+                <input
+                    type="text"
+                    id="assigned_to"
+                    class="form-control"
+                    value="{{ lead.assigned_to }}">
+
+                <br>
+
+                <button
+                    type="submit"
+                    class="btn btn-warning">
+
+                    Assign Lead
+
+                </button>
+
+            </form>
+
+            <hr>
+
+            <!-- ========================= -->
+            <!-- Follow-up -->
+            <!-- ========================= -->
+
+            <h5>Schedule Follow-up</h5>
+
+            <form id="followupForm">
+
+                <input
+                    type="datetime-local"
+                    id="followup"
+                    class="form-control">
+
+                <br>
+
+                <button
+                    type="submit"
+                    class="btn btn-info">
+
+                    Schedule Follow-up
+
+                </button>
+
+            </form>
+
+            <hr>
+
+            <!-- ========================= -->
+            <!-- AI Outreach -->
+            <!-- ========================= -->
+
+            <h4>AI Outreach</h4>
+
+            <div class="card border-primary mb-4">
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <label
+                            for="outreach_subject"
+                            class="form-label fw-bold">
+
+                            Subject
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="outreach_subject"
+                            class="form-control"
+                            placeholder="Generate an outreach subject...">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label
+                            for="outreach_message"
+                            class="form-label fw-bold">
+
+                            Message
+
+                        </label>
+
+                        <textarea
+                            id="outreach_message"
+                            class="form-control"
+                            rows="10"
+                            placeholder="Generate an outreach message..."></textarea>
+
+                    </div>
+
+                    <div class="d-flex gap-2">
+
+                        <button
+                            type="button"
+                            id="generateOutreachBtn"
+                            class="btn btn-primary">
+
+                            Generate Outreach
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="saveOutreachBtn"
+                            class="btn btn-success">
+
+                            Save Outreach
+
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="outreachStatus"
+                        class="mt-3"
+                        style="display:none;">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- AI Explanation -->
+            <!-- ========================= -->
+
+            <h4>AI Explanation</h4>
+
+            <div class="alert alert-info">
+
+                {{ lead.ranking_reason }}
+
+            </div>
+
+            <a
+                href="{{ lead.link }}"
+                target="_blank"
+                class="btn btn-primary">
+
+                Open Original Lead
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("statusForm").onsubmit = async function(e){
+
+    e.preventDefault();
+
+    const form = new FormData();
+
+    form.append(
+        "crm_status",
+        document.getElementById("crm_status").value
+    );
+
+    await fetch("/lead/{{ lead.id }}/status",{
+        method:"POST",
+        body:form
+    });
+
+    alert("Status updated successfully!");
+
+};
+
+document.getElementById("notesForm").onsubmit = async function(e){
+
+    e.preventDefault();
+
+    const form = new FormData();
+
+    form.append(
+        "notes",
+        document.getElementById("notes").value
+    );
+
+    await fetch("/lead/{{ lead.id }}/notes",{
+        method:"POST",
+        body:form
+    });
+
+    alert("Notes saved successfully!");
+
+};
+
+document.getElementById("assignForm").onsubmit = async function(e){
+
+    e.preventDefault();
+
+    const form = new FormData();
+
+    form.append(
+        "assigned_to",
+        document.getElementById("assigned_to").value
+    );
+
+    await fetch("/lead/{{ lead.id }}/assign",{
+        method:"POST",
+        body:form
+    });
+
+    alert("Lead assigned successfully!");
+
+};
+
+document.getElementById("followupForm").onsubmit = async function(e){
+
+    e.preventDefault();
+
+    const form = new FormData();
+
+    form.append(
+        "next_followup",
+        document.getElementById("followup").value
+    );
+
+    await fetch("/lead/{{ lead.id }}/followup",{
+        method:"POST",
+        body:form
+    });
+
+    alert("Follow-up scheduled successfully!");
+
+};
+
+document.getElementById("companyForm").onsubmit = async function(e){
+
+    e.preventDefault();
+
+    const form = new FormData();
+
+    form.append(
+        "company_name",
+        document.getElementById("company_name").value
+    );
+
+    form.append(
+        "industry",
+        document.getElementById("industry").value
+    );
+
+    form.append(
+        "country",
+        document.getElementById("country").value
+    );
+
+    form.append(
+        "website",
+        document.getElementById("website").value
+    );
+
+    form.append(
+        "email",
+        document.getElementById("email").value
+    );
+
+    form.append(
+        "linkedin",
+        document.getElementById("linkedin").value
+    );
+
+    try {
+
+        const response = await fetch(
+            "/lead/{{ lead.id }}/company",
+            {
+                method: "POST",
+                body: form
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+
+            alert(
+                "Failed to update company information."
+            );
+
+            return;
+        }
+
+        alert(
+            "Company information updated successfully!"
+        );
+
+        window.location.reload();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "An error occurred while updating company information."
+        );
+    }
+
+};
+
+// ============================================================
+// AI OUTREACH
+// ============================================================
+
+const outreachSubject =
+    document.getElementById("outreach_subject");
+
+const outreachMessage =
+    document.getElementById("outreach_message");
+
+const generateOutreachBtn =
+    document.getElementById("generateOutreachBtn");
+
+const saveOutreachBtn =
+    document.getElementById("saveOutreachBtn");
+
+const outreachStatus =
+    document.getElementById("outreachStatus");
+
+
+function showOutreachStatus(message, type = "info") {
+
+    outreachStatus.style.display = "block";
+
+    outreachStatus.className =
+        "alert alert-" + type + " mt-3";
+
+    outreachStatus.textContent = message;
+}
+
+
+// ============================================================
+// LOAD EXISTING OUTREACH
+// ============================================================
+
+async function loadExistingOutreach() {
+
+    try {
+
+        const response = await fetch(
+            "/lead/{{ lead.id }}"
+        );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const lead = await response.json();
+
+        if (!lead.outreach_message) {
+            return;
+        }
+
+        let outreach;
+
+        try {
+
+            outreach =
+                typeof lead.outreach_message === "string"
+                    ? JSON.parse(lead.outreach_message)
+                    : lead.outreach_message;
+
+        } catch (error) {
+
+            console.error(
+                "Could not parse saved outreach:",
+                error
+            );
+
+            return;
+        }
+
+        outreachSubject.value =
+            outreach.subject || "";
+
+        outreachMessage.value =
+            outreach.message || "";
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load existing outreach:",
+            error
+        );
+
+    }
+}
+
+
+// ============================================================
+// GENERATE OUTREACH
+// ============================================================
+
+generateOutreachBtn.onclick = async function() {
+
+    generateOutreachBtn.disabled = true;
+
+    generateOutreachBtn.textContent =
+        "Generating...";
+
+    showOutreachStatus(
+        "AI is generating personalized outreach...",
+        "info"
+    );
+
+    try {
+
+        const response = await fetch(
+            "/lead/{{ lead.id }}/generate-outreach",
+            {
+                method: "POST"
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+
+            throw new Error(
+                result.detail ||
+                "Outreach generation failed."
+            );
+
+        }
+
+        outreachSubject.value =
+            result.subject || "";
+
+        outreachMessage.value =
+            result.message || "";
+
+        showOutreachStatus(
+            "Outreach generated successfully. Review and edit it before saving.",
+            "success"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        showOutreachStatus(
+            "Failed to generate outreach: " +
+            error.message,
+            "danger"
+        );
+
+    } finally {
+
+        generateOutreachBtn.disabled = false;
+
+        generateOutreachBtn.textContent =
+            "Generate Outreach";
+
+    }
+
+};
+
+
+// ============================================================
+// SAVE OUTREACH
+// ============================================================
+
+saveOutreachBtn.onclick = async function() {
+
+    const subject =
+        outreachSubject.value.trim();
+
+    const message =
+        outreachMessage.value.trim();
+
+
+    if (!subject || !message) {
+
+        showOutreachStatus(
+            "Please generate or enter both a subject and message.",
+            "warning"
+        );
+
+        return;
+    }
+
+
+    saveOutreachBtn.disabled = true;
+
+    saveOutreachBtn.textContent =
+        "Saving...";
+
+
+    const form = new FormData();
+
+    form.append(
+        "subject",
+        subject
+    );
+
+    form.append(
+        "message",
+        message
+    );
+
+
+    try {
+
+        const response = await fetch(
+            "/lead/{{ lead.id }}/outreach",
+            {
+                method: "POST",
+                body: form
+            }
+        );
+
+        const result = await response.json();
+
+
+        if (!response.ok || !result.success) {
+
+            throw new Error(
+                result.detail ||
+                "Failed to save outreach."
+            );
+
+        }
+
+
+        showOutreachStatus(
+            "Outreach saved successfully.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showOutreachStatus(
+            "Failed to save outreach: " +
+            error.message,
+            "danger"
+        );
+
+    } finally {
+
+        saveOutreachBtn.disabled = false;
+
+        saveOutreachBtn.textContent =
+            "Save Outreach";
+
+    }
+
+};
+
+
+// Load previously saved outreach
+loadExistingOutreach();
+
+</script>
+
+</body>
+</html>

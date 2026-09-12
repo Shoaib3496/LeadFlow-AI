@@ -1,0 +1,64 @@
+def _write_notification(message):
+    log_file = "notifications.log"
+
+    with open(log_file, "a", encoding="utf-8") as file:
+        file.write(message + "\n")
+
+    print(f"Notification Sent: {message}")
+
+
+def notify_new_lead(title, score):
+
+    _write_notification(
+        f"NEW LEAD | Score: {score} | {title}"
+    )
+
+
+def notify_hot_lead(
+    title,
+    platform,
+    score,
+    priority,
+    budget
+):
+
+    message = (
+        "🔥 HOT LEAD DETECTED\n"
+        f"Title: {title}\n"
+        f"Platform: {platform}\n"
+        f"Score: {score}\n"
+        f"Priority: {priority}\n"
+        f"Budget: {budget}"
+    )
+
+    _write_notification(message)
+
+
+def notify_pipeline_completed(
+    collected,
+    buyer_intent_rejected,
+    business_fit_rejected,
+    duplicates,
+    saved
+):
+
+    message = (
+        "✅ PIPELINE COMPLETED\n"
+        f"Collected: {collected}\n"
+        f"Buyer Intent Rejected: {buyer_intent_rejected}\n"
+        f"Business Fit Rejected: {business_fit_rejected}\n"
+        f"Duplicates: {duplicates}\n"
+        f"Saved: {saved}"
+    )
+
+    _write_notification(message)
+
+
+def notify_pipeline_failed(error):
+
+    message = (
+        "❌ PIPELINE FAILED\n"
+        f"Error: {error}"
+    )
+
+    _write_notification(message)

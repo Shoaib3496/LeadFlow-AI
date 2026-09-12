@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LeadFlow AI CRM Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container-fluid my-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>📊 CRM Sales Pipeline</h2>
+
+        <div>
+
+            <a href="/crm-analytics-dashboard"
+            class="btn btn-dark me-2">
+
+                CRM Analytics
+
+            </a>
+
+            <a href="/dashboard"
+            class="btn btn-primary">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <div class="card border-warning mb-4">
+
+        <div class="card-header bg-warning">
+
+            🔔 CRM Notifications
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col">
+
+                    <h5>
+
+                        ⚠️ Overdue
+
+                    </h5>
+
+                    <h2>{{ reminders.overdue }}</h2>
+
+                </div>
+
+                <div class="col">
+
+                    <h5>
+
+                        📅 Today
+
+                    </h5>
+
+                    <h2>{{ reminders.today }}</h2>
+
+                </div>
+
+                <div class="col">
+
+                    <h5>
+
+                        🔥 HOT
+
+                    </h5>
+
+                    <h2>{{ reminders.hot }}</h2>
+
+                </div>
+
+                <div class="col">
+
+                    <h5>
+
+                        📄 Proposal
+
+                    </h5>
+
+                    <h2>{{ reminders.proposal }}</h2>
+
+                </div>
+
+                <div class="col">
+
+                    <h5>
+
+                        🆕 New
+
+                    </h5>
+
+                    <h2>{{ reminders.new }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- Summary Cards -->
+    <!-- ================================= -->
+
+    <div class="row mb-4">
+
+        <div class="col">
+            <div class="card bg-primary text-white text-center shadow">
+                <div class="card-body">
+                    <h5>New</h5>
+                    <h2>{{ crm.new|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-secondary text-white text-center shadow">
+                <div class="card-body">
+                    <h5>Viewed</h5>
+                    <h2>{{ crm.viewed|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-warning text-dark text-center shadow">
+                <div class="card-body">
+                    <h5>Contacted</h5>
+                    <h2>{{ crm.contacted|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-info text-white text-center shadow">
+                <div class="card-body">
+                    <h5>Meeting</h5>
+                    <h2>{{ crm.meeting|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-success text-white text-center shadow">
+                <div class="card-body">
+                    <h5>Won</h5>
+                    <h2>{{ crm.won|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-danger text-white text-center shadow">
+                <div class="card-body">
+                    <h5>Lost</h5>
+                    <h2>{{ crm.lost|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h3 class="mt-5">
+
+    Today's Follow-ups
+
+    </h3>
+
+    <table class="table table-bordered">
+
+    <tr>
+
+    <th>Lead</th>
+
+    <th>Follow-up</th>
+
+    <th>Status</th>
+
+    <th>Action</th>
+
+    </tr>
+
+    {% for lead in crm.contacted %}
+
+    {% if lead.next_followup %}
+
+    <tr>
+
+    <td>{{ lead.title }}</td>
+
+    <td>{{ lead.next_followup }}</td>
+
+    <td>{{ lead.crm_status }}</td>
+
+    <td>
+
+    <a
+    href="/lead-details/{{ lead.id }}"
+    class="btn btn-primary btn-sm">
+
+    Open
+
+    </a>
+
+    </td>
+
+    </tr>
+
+    {% endif %}
+
+    {% endfor %}
+
+    </table>
+
+    <!-- ================================= -->
+    <!-- Kanban Pipeline -->
+    <!-- ================================= -->
+
+    <div class="row">
+
+        <!-- NEW -->
+
+        <div class="col">
+
+            <h4 class="text-primary">New</h4>
+
+            {% for lead in crm.new %}
+
+            <div class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    <strong>{{ lead.title }}</strong>
+
+                    <hr>
+
+                    <br>
+
+                    {% if lead.next_followup %}
+
+                    <span class="badge bg-danger">
+
+                        Follow-up Scheduled
+
+                    </span>
+
+                    {% endif %}
+
+                    <p>
+
+                        <b>Score:</b>
+                        {{ lead.commercial_score }}
+
+                    </p>
+
+                    <p>
+
+                        <b>Service:</b>
+                        {{ lead.primary_service }}
+
+                    </p>
+
+                    <a
+                        href="/lead-details/{{ lead.id }}"
+                        class="btn btn-sm btn-primary">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- CONTACTED -->
+
+        <div class="col">
+
+            <h4 class="text-warning">Contacted</h4>
+
+            {% for lead in crm.contacted %}
+
+            <div class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    <strong>{{ lead.title }}</strong>
+
+                    <hr>
+
+                    <p>{{ lead.company_name }}</p>
+
+                    <a
+                        href="/lead-details/{{ lead.id }}"
+                        class="btn btn-warning btn-sm">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- PROPOSAL -->
+
+        <div class="col">
+
+            <h4 class="text-info">Proposal</h4>
+
+            {% for lead in crm.proposal %}
+
+            <div class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    <strong>{{ lead.title }}</strong>
+
+                    <hr>
+
+                    <a
+                        href="/lead-details/{{ lead.id }}"
+                        class="btn btn-info btn-sm">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- NEGOTIATION -->
+
+        <div class="col">
+
+            <h4 class="text-dark">Negotiation</h4>
+
+            {% for lead in crm.negotiation %}
+
+            <div class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    <strong>{{ lead.title }}</strong>
+
+                    <hr>
+
+                    <a
+                        href="/lead-details/{{ lead.id }}"
+                        class="btn btn-dark btn-sm">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- WON -->
+
+        <div class="col">
+
+            <h4 class="text-success">Won</h4>
+
+            {% for lead in crm.won %}
+
+            <div class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    <strong>{{ lead.title }}</strong>
+
+                    <hr>
+
+                    <a
+                        href="/lead-details/{{ lead.id }}"
+                        class="btn btn-success btn-sm">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- LOST -->
+
+        <div class="col">
+
+            <h4 class="text-danger">Lost</h4>
+
+            {% for lead in crm.lost %}
+
+            <div class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    <strong>{{ lead.title }}</strong>
+
+                    <hr>
+
+                    <a
+                        href="/lead-details/{{ lead.id }}"
+                        class="btn btn-danger btn-sm">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

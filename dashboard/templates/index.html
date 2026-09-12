@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>LeadFlow AI</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            background:#f4f7fb;
+            padding:30px;
+
+        }
+
+        h1{
+
+            color:#2c3e50;
+
+        }
+
+        .topbar{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:30px;
+
+        }
+
+        .btn{
+
+            padding:10px 18px;
+
+            background:#2c3e50;
+
+            color:white;
+
+            text-decoration:none;
+
+            border-radius:6px;
+
+            margin-left:10px;
+
+            transition:.25s;
+
+        }
+
+        .btn:hover{
+
+            background:#1d2935;
+
+        }
+
+        .stats{
+
+            display:grid;
+
+            grid-template-columns:repeat(5,1fr);
+
+            gap:20px;
+
+            margin-bottom:30px;
+
+        }
+
+        .actionable{
+
+            border-left:6px solid #8e44ad;
+
+        }
+
+        .card{
+
+            background:white;
+
+            border-radius:10px;
+
+            padding:20px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+        }
+
+        .card h2{
+
+            margin-top:12px;
+
+            color:#2c3e50;
+
+        }
+
+        .total{
+
+            border-left:6px solid #34495e;
+
+        }
+
+        .hot{
+
+            border-left:6px solid #e53935;
+
+        }
+
+        .warm{
+
+            border-left:6px solid #fb8c00;
+
+        }
+
+        .medium{
+
+            border-left:6px solid #1e88e5;
+
+        }
+
+        .low{
+
+            border-left:6px solid #757575;
+
+        }
+
+        .search-box{
+
+            background:white;
+
+            padding:18px;
+
+            border-radius:10px;
+
+            margin-bottom:30px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+        }
+
+        .search-box input{
+
+            width:100%;
+
+            padding:12px;
+
+            border:1px solid #ddd;
+
+            border-radius:6px;
+
+            font-size:15px;
+
+        }
+
+        .section-title{
+
+            margin-bottom:20px;
+
+            color:#2c3e50;
+
+        }
+
+        .analytics{
+
+            display:grid;
+
+            grid-template-columns:repeat(4,1fr);
+
+            gap:20px;
+
+            margin-bottom:30px;
+
+        }
+
+        .analytics-card{
+
+            background:white;
+
+            padding:20px;
+
+            border-radius:10px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+        }
+
+        .analytics-card h3{
+
+            color:#666;
+
+            margin-bottom:10px;
+
+        }
+
+        .analytics-card h2{
+
+            color:#2c3e50;
+
+        }
+
+        .search-row{
+
+            display:flex;
+
+            gap:20px;
+
+        }
+
+        .search-row input{
+
+            flex:1;
+
+            padding:12px;
+
+            border-radius:6px;
+
+            border:1px solid #ddd;
+
+        }
+
+        .search-row select{
+
+            padding:12px;
+
+            border-radius:6px;
+
+            border:1px solid #ddd;
+
+        }
+
+        .lead-card{
+
+            background:white;
+
+            border-radius:12px;
+
+            padding:25px;
+
+            margin-bottom:25px;
+
+            box-shadow:0 4px 10px rgba(0,0,0,.08);
+
+        }
+
+        .lead-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            margin-bottom:25px;
+
+        }
+
+        .badge{
+
+            color:white;
+
+            padding:6px 12px;
+
+            border-radius:6px;
+
+            font-size:14px;
+
+            font-weight:bold;
+
+        }
+
+        .hot-badge{
+
+            background:#d32f2f;
+
+        }
+
+        .warm-badge{
+
+            background:#fb8c00;
+
+        }
+
+        .medium-badge{
+
+            background:#1976d2;
+
+        }
+
+        .low-badge{
+
+            background:#616161;
+
+        }
+
+        .score-circle{
+
+            width:70px;
+
+            height:70px;
+
+            border-radius:50%;
+
+            background:#2c3e50;
+
+            color:white;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            font-size:22px;
+
+            font-weight:bold;
+
+        }
+
+        .lead-grid{
+
+            display:grid;
+
+            grid-template-columns:repeat(3,1fr);
+
+            gap:18px;
+
+            margin-bottom:20px;
+
+        }
+
+        .reason-box{
+
+            background:#eef5ff;
+
+            border-left:5px solid #1e88e5;
+
+            padding:15px;
+
+            border-radius:6px;
+
+            margin-bottom:20px;
+
+        }
+
+        .button-row{
+
+            display:flex;
+
+            gap:15px;
+
+        }
+
+        .source-monitoring{
+
+            display:grid;
+
+            grid-template-columns:repeat(3,1fr);
+
+            gap:20px;
+
+            margin-bottom:30px;
+
+        }
+
+        .source-card{
+
+            background:white;
+
+            padding:20px;
+
+            border-radius:10px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+            border-left:5px solid #27ae60;
+
+        }
+
+        .source-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:20px;
+
+        }
+
+        .source-header h3{
+
+            color:#2c3e50;
+
+        }
+
+        .source-status{
+
+            color:#27ae60;
+
+            font-size:12px;
+
+            font-weight:bold;
+
+        }
+
+        .source-metrics{
+
+            display:grid;
+
+            grid-template-columns:1fr 1fr;
+
+            gap:15px;
+
+        }
+
+        .source-metrics div{
+
+            background:#f4f7fb;
+
+            padding:12px;
+
+            border-radius:6px;
+
+        }
+
+        .source-metrics small{
+
+            display:block;
+
+            color:#777;
+
+            margin-bottom:6px;
+
+        }
+
+        .source-metrics strong{
+
+            font-size:22px;
+
+            color:#2c3e50;
+
+        }
+
+        .pipeline-control{
+
+            background:white;
+
+            padding:25px;
+
+            border-radius:10px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+            margin-bottom:30px;
+        }
+
+        .pipeline-status-panel{
+
+            display:grid;
+
+            grid-template-columns:repeat(3,1fr);
+
+            gap:20px;
+
+            margin-bottom:25px;
+        }
+
+        .pipeline-status-panel div{
+
+            background:#f4f7fb;
+
+            padding:15px;
+
+            border-radius:8px;
+        }
+
+        .pipeline-status-panel small{
+
+            display:block;
+
+            color:#777;
+
+            margin-bottom:7px;
+        }
+
+        .pipeline-actions{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:20px;
+
+            margin-bottom:20px;
+        }
+
+        .run-pipeline-btn{
+
+            border:none;
+
+            border-radius:7px;
+
+            padding:13px 22px;
+
+            cursor:pointer;
+
+            font-weight:bold;
+
+            background:#2c3e50;
+
+            color:white;
+        }
+
+        .run-pipeline-btn:disabled{
+
+            opacity:.5;
+
+            cursor:not-allowed;
+        }
+
+        .pipeline-results{
+
+            display:grid;
+
+            grid-template-columns:repeat(5,1fr);
+
+            gap:15px;
+
+            margin-top:20px;
+        }
+
+        .pipeline-results div{
+
+            background:#f4f7fb;
+
+            padding:15px;
+
+            border-radius:7px;
+
+            text-align:center;
+        }
+
+        .pipeline-results small{
+
+            display:block;
+
+            color:#777;
+
+            margin-bottom:8px;
+        }
+
+        .pipeline-results strong{
+
+            font-size:22px;
+        }
+
+        /* ===================================================== */
+        /* SCRAPER HEALTH */
+        /* ===================================================== */
+
+        .scraper-health-summary{
+
+            display:grid;
+
+            grid-template-columns:repeat(4,1fr);
+
+            gap:20px;
+
+            margin-bottom:20px;
+        }
+
+
+        .scraper-summary-card{
+
+            background:white;
+
+            padding:20px;
+
+            border-radius:10px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+        }
+
+
+        .scraper-summary-card small{
+
+            display:block;
+
+            color:#777;
+
+            margin-bottom:8px;
+        }
+
+
+        .scraper-summary-card strong{
+
+            font-size:24px;
+
+            color:#2c3e50;
+        }
+
+
+        .scraper-health-container{
+
+            display:grid;
+
+            grid-template-columns:repeat(3,1fr);
+
+            gap:20px;
+
+            margin-bottom:30px;
+        }
+
+
+        .scraper-health-card{
+
+            background:white;
+
+            padding:20px;
+
+            border-radius:10px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+        }
+
+
+        .scraper-health-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:20px;
+        }
+
+
+        .scraper-health-status{
+
+            padding:6px 10px;
+
+            border-radius:6px;
+
+            color:white;
+
+            font-size:12px;
+
+            font-weight:bold;
+        }
+
+
+        .health-healthy{
+
+            background:#27ae60;
+        }
+
+
+        .health-degraded{
+
+            background:#f39c12;
+        }
+
+
+        .health-failed{
+
+            background:#e74c3c;
+        }
+
+
+        .health-running{
+
+            background:#3498db;
+        }
+
+
+        .scraper-health-details p{
+
+            margin-top:8px;
+
+            color:#555;
+        }
+
+        /* ===================================================== */
+        /* PIPELINE LOGS VIEWER */
+        /* ===================================================== */
+
+        .pipeline-logs-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin-bottom: 30px;
+        }
+
+        .pipeline-logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .pipeline-logs-header h3 {
+            color: #2c3e50;
+        }
+
+        .refresh-logs-btn {
+            border: none;
+            background: #2c3e50;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .refresh-logs-btn:hover {
+            background: #1d2935;
+        }
+
+        .pipeline-log-viewer {
+            background: #17202a;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            height: 350px;
+            overflow-y: auto;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .pipeline-log-line {
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(255,255,255,.04);
+        }
+
+        .pipeline-log-empty {
+            color: #95a5a6;
+        }
+
+        .pipeline-log-error {
+            color: #ff7675;
+        }
+
+        .pipeline-log-warning {
+            color: #ffeaa7;
+        }
+
+        /* ===================================================== */
+        /* DASHBOARD PERFORMANCE */
+        /* STEP 4.3.4.8.4 */
+        /* ===================================================== */
+
+        .performance-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin-bottom: 30px;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .performance-card {
+            background: #f4f7fb;
+            padding: 18px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .performance-card small {
+            display: block;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .performance-card strong {
+            font-size: 20px;
+            color: #2c3e50;
+        }
+
+        .performance-status {
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+
+<div>
+
+<h1>🚀 LeadFlow AI</h1>
+
+<p>Production Lead Intelligence Dashboard</p>
+
+</div>
+
+<div>
+
+<a href="/profile" class="btn">
+
+👤 Founder
+
+</a>
+
+<a href="/export-csv" class="btn">
+
+📄 Export
+
+</a>
+
+<a href="/scrape" class="btn">
+
+🔄 Refresh
+
+</a>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="card total">
+
+<p>Total Opportunities</p>
+
+<h2>{{ total_leads }}</h2>
+
+</div>
+
+<div class="card hot">
+
+<p>🔥 HOT</p>
+
+<h2>{{ hot_leads }}</h2>
+
+</div>
+
+<div class="card warm">
+
+<p>🟡 WARM</p>
+
+<div class="stats">
+
+    <div class="card total">
+
+        <p>📦 Total Stored Leads</p>
+
+        <h2>{{ total_stored_leads }}</h2>
+
+    </div>
+
+    <div class="card actionable">
+
+        <p>🎯 Actionable Opportunities</p>
+
+        <h2>{{ actionable_leads }}</h2>
+
+    </div>
+
+    <div class="card hot">
+
+        <p>🔥 HOT</p>
+
+        <h2>{{ hot_leads }}</h2>
+
+    </div>
+
+    <div class="card warm">
+
+        <p>🟡 WARM</p>
+
+        <h2>{{ warm_leads }}</h2>
+
+    </div>
+
+    <div class="card medium">
+
+        <p>🔵 MEDIUM</p>
+
+        <h2>{{ medium_leads }}</h2>
+
+    </div>
+
+</div>
+
+<div class="analytics">
+
+    <div class="analytics-card">
+
+        <h3>📈 Average Commercial Score</h3>
+
+        <h2>{{ average_score }}</h2>
+
+    </div>
+
+    <div class="analytics-card">
+
+        <h3>🏆 Best Commercial Score</h3>
+
+        <h2>{{ best_score }}</h2>
+
+    </div>
+
+    <div class="analytics-card">
+
+        <h3>🌍 Active Opportunity Sources</h3>
+
+        <h2>{{ production_sources }}</h2>
+
+    </div>
+
+    <div class="analytics-card">
+
+        <h3>📂 Services</h3>
+
+        <h2>
+            {{ leads|map(attribute='primary_service')|unique|list|length }}
+        </h2>
+
+    </div>
+
+</div>
+
+
+<h2 class="section-title">
+    🌐 Source Monitoring
+</h2>
+
+<div class="source-monitoring">
+
+    {% for source in source_stats %}
+
+    <div class="source-card">
+
+        <div class="source-header">
+
+            <h3>{{ source.name }}</h3>
+
+            <span class="source-status">
+                ● ACTIVE
+            </span>
+
+        </div>
+
+        <div class="source-metrics">
+
+            <div>
+
+                <small>Stored Leads</small>
+
+                <strong>
+                    {{ source.total }}
+                </strong>
+
+            </div>
+
+            <div>
+
+                <small>Actionable</small>
+
+                <strong>
+                    {{ source.actionable }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<!-- ===================================================== -->
+<!-- PIPELINE CONTROL CENTER -->
+<!-- ===================================================== -->
+
+<h2 class="section-title">
+    ⚙️ Pipeline Control Center
+</h2>
+
+<div class="pipeline-control">
+
+    <div class="pipeline-status-panel">
+
+        <div>
+            <small>Pipeline Status</small>
+            <h2 id="pipelineState">IDLE</h2>
+        </div>
+
+        <div>
+            <small>Started At</small>
+            <strong id="pipelineStarted">-</strong>
+        </div>
+
+        <div>
+            <small>Finished At</small>
+            <strong id="pipelineFinished">-</strong>
+        </div>
+
+    </div>
+
+    <div class="pipeline-actions">
+
+        <button
+            id="runPipelineButton"
+            class="run-pipeline-btn"
+            onclick="runProductionPipeline()"
+        >
+            ▶ Run Production Pipeline
+        </button>
+
+        <p id="pipelineMessage">
+            Production pipeline ready.
+        </p>
+
+    </div>
+
+    <div
+        id="pipelineResults"
+        class="pipeline-results"
+        style="display:none;"
+    >
+
+        <div>
+            <small>Collected</small>
+            <strong id="resultCollected">0</strong>
+        </div>
+
+        <div>
+            <small>Buyer Rejected</small>
+            <strong id="resultBuyerRejected">0</strong>
+        </div>
+
+        <div>
+            <small>Fit Rejected</small>
+            <strong id="resultFitRejected">0</strong>
+        </div>
+
+        <div>
+            <small>Duplicates</small>
+            <strong id="resultDuplicates">0</strong>
+        </div>
+
+        <div>
+            <small>Genuine Leads Saved</small>
+            <strong id="resultSaved">0</strong>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- SCRAPER HEALTH -->
+<!-- ===================================================== -->
+
+<h2 class="section-title">
+    🩺 Scraper Health
+</h2>
+
+<div class="scraper-health-summary">
+
+    <div class="scraper-summary-card">
+        <small>Total Scrapers</small>
+        <strong id="scraperTotal">0</strong>
+    </div>
+
+    <div class="scraper-summary-card">
+        <small>🟢 Healthy</small>
+        <strong id="scraperHealthy">0</strong>
+    </div>
+
+    <div class="scraper-summary-card">
+        <small>🟡 Degraded</small>
+        <strong id="scraperDegraded">0</strong>
+    </div>
+
+    <div class="scraper-summary-card">
+        <small>🔴 Failed</small>
+        <strong id="scraperFailed">0</strong>
+    </div>
+
+</div>
+
+<div
+    id="scraperHealthContainer"
+    class="scraper-health-container"
+>
+    <p>Loading scraper health...</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- PIPELINE LOGS -->
+<!-- ===================================================== -->
+
+<h2 class="section-title">
+    📜 Pipeline Logs
+</h2>
+
+<div class="pipeline-logs-container">
+
+    <div class="pipeline-logs-header">
+
+        <h3>
+            Production Pipeline Activity
+        </h3>
+
+        <button
+            class="refresh-logs-btn"
+            onclick="loadPipelineLogs()"
+        >
+            🔄 Refresh Logs
+        </button>
+
+    </div>
+
+    <div
+        id="pipelineLogViewer"
+        class="pipeline-log-viewer"
+    >
+        <div class="pipeline-log-empty">
+            Loading pipeline logs...
+        </div>
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- DASHBOARD PERFORMANCE -->
+<!-- STEP 4.3.4.8.4 -->
+<!-- ===================================================== -->
+
+<h2 class="section-title">
+    ⚡ Dashboard Performance
+</h2>
+
+<div class="performance-panel">
+
+    <div class="performance-grid">
+
+        <div class="performance-card">
+            <small>Status</small>
+            <strong
+                id="performanceStatus"
+                class="performance-status"
+            >
+                Loading...
+            </strong>
+        </div>
+
+        <div class="performance-card">
+            <small>Last Response</small>
+            <strong id="performanceLast">
+                -
+            </strong>
+        </div>
+
+        <div class="performance-card">
+            <small>Average Response</small>
+            <strong id="performanceAverage">
+                -
+            </strong>
+        </div>
+
+        <div class="performance-card">
+            <small>Fastest</small>
+            <strong id="performanceFastest">
+                -
+            </strong>
+        </div>
+
+        <div class="performance-card">
+            <small>Slowest</small>
+            <strong id="performanceSlowest">
+                -
+            </strong>
+        </div>
+
+    </div>
+
+    <p
+        id="performanceDetails"
+        style="margin-top:15px;color:#777;"
+    >
+        Loading dashboard performance metrics...
+    </p>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- LEAD ANALYTICS -->
+<!-- ===================================================== -->
+
+<h2 class="section-title">
+    📊 Lead Analytics
+</h2>
+
+<div class="lead-analytics">
+
+    <div class="analytics-card">
+        <small>Total Leads</small>
+        <strong>{{ analytics.total }}</strong>
+    </div>
+
+    <div class="analytics-card">
+        <small>Actionable</small>
+        <strong>{{ analytics.actionable }}</strong>
+    </div>
+
+    <div class="analytics-card">
+        <small>Actionable Rate</small>
+        <strong>{{ analytics.actionable_rate }}%</strong>
+    </div>
+
+    <div class="analytics-card hot">
+        <small>🔥 HOT</small>
+        <strong>{{ analytics.hot }}</strong>
+    </div>
+
+    <div class="analytics-card warm">
+        <small>🟡 WARM</small>
+        <strong>{{ analytics.warm }}</strong>
+    </div>
+
+    <div class="analytics-card medium">
+        <small>🔵 MEDIUM</small>
+        <strong>{{ analytics.medium }}</strong>
+    </div>
+
+    <div class="analytics-card low">
+        <small>⚪ LOW</small>
+        <strong>{{ analytics.low }}</strong>
+    </div>
+
+</div>
+
+<div class="search-row">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search opportunities..."
+    >
+
+    <select id="priorityFilter">
+
+        <option value="">All Priorities</option>
+        <option value="HOT">HOT</option>
+        <option value="WARM">WARM</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="LOW">LOW</option>
+
+    </select>
+
+</div>
+
+<h2 class="section-title">
+    🎯 Top Actionable Opportunities
+</h2>
+
+<h2 class="section-title">
+    🎯 Top Actionable Opportunities
+</h2>
+
+<p id="searchResultCount" style="margin-bottom:20px; color:#666;">
+    Showing {{ leads|length }} opportunities
+</p>
+
+<div id="leadResults">
+
+    {% for lead in leads %}
+
+        <div
+            class="lead-card searchable-card"
+            data-priority="{{ lead.commercial_priority }}"
+        >
+
+            <div class="lead-header">
+
+                <div>
+
+                    {% if lead.commercial_priority == "HOT" %}
+                        <span class="badge hot-badge">🔥 HOT</span>
+
+                    {% elif lead.commercial_priority == "WARM" %}
+                        <span class="badge warm-badge">🟡 WARM</span>
+
+                    {% elif lead.commercial_priority == "MEDIUM" %}
+                        <span class="badge medium-badge">🔵 MEDIUM</span>
+
+                    {% else %}
+                        <span class="badge low-badge">⚪ LOW</span>
+                    {% endif %}
+
+                    <h2 style="margin-top:10px;">
+                        {{ lead.title }}
+                    </h2>
+
+                </div>
+
+            <div class="score-circle">
+
+                {{ lead.commercial_score }}
+
+            </div>
+
+        </div>
+
+        <div class="lead-grid">
+
+            <div>
+
+                <strong>Platform</strong>
+
+                <p>{{ lead.platform }}</p>
+
+            </div>
+
+            <div>
+
+                <strong>Service</strong>
+
+                <p>{{ lead.primary_service }}</p>
+
+            </div>
+
+            <div>
+
+                <strong>Budget</strong>
+
+                <p>{{ lead.budget }}</p>
+
+            </div>
+
+            <div>
+
+                <strong>Bids</strong>
+
+                <p>{{ lead.bid_count }}</p>
+
+            </div>
+
+            <div>
+
+                <strong>Buyer Intent</strong>
+
+                <p>{{ lead.buyer_intent_score }}/100</p>
+
+            </div>
+
+            <div>
+
+                <strong>Business Fit</strong>
+
+                <p>{{ lead.business_fit_score }}/100</p>
+
+            </div>
+
+        </div>
+
+        <div class="reason-box">
+
+            <strong>AI Ranking Reason</strong>
+
+            <p>
+
+                {{ lead.ranking_reason }}
+
+            </p>
+
+        </div>
+
+        <div class="button-row">
+
+            <a
+                href="{{ lead.link }}"
+                target="_blank"
+                class="btn"
+            >
+                🌐 Open Project
+            </a>
+
+            <a
+                href="/lead-details/{{ lead.id }}"
+                class="btn"
+            >
+                📄 CRM Details
+            </a>
+
+            <a 
+                href="/crm-dashboard"
+                class="btn btn-success"
+            >
+
+                CRM Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+</div>
+
+    <script>
+
+    function searchCards(){
+
+    let input=document.getElementById("searchInput").value.toLowerCase();
+
+    let cards=document.querySelectorAll(".searchable-card");
+
+    cards.forEach(card=>{
+
+    let text=card.innerText.toLowerCase();
+
+    card.style.display=text.includes(input)?"block":"none";
+
+    });
+
+    }
+
+    function filterPriority(){
+
+    let value=document.getElementById("priorityFilter").value;
+
+    let cards=document.querySelectorAll(".searchable-card");
+
+    cards.forEach(card=>{
+
+    if(value===""){
+
+    card.style.display="block";
+
+    return;
+
+    }
+
+    card.style.display=
+
+    card.dataset.priority===value
+
+    ?"block"
+
+    :"none";
+
+    });
+
+    }
+
+    </script>
+
+    <script>
+
+    async function loadPipelineStatus(){
+
+        try{
+
+            const response = await fetch("/pipeline-status");
+
+            const data = await response.json();
+
+
+            // -----------------------------------------
+            // Status
+            // -----------------------------------------
+
+            document.getElementById(
+                "pipelineState"
+            ).innerText = data.state;
+
+
+            document.getElementById(
+                "pipelineStarted"
+            ).innerText = data.started_at || "-";
+
+
+            document.getElementById(
+                "pipelineFinished"
+            ).innerText = data.finished_at || "-";
+
+
+            const button = document.getElementById(
+                "runPipelineButton"
+            );
+
+
+            // -----------------------------------------
+            // Running state
+            // -----------------------------------------
+
+            if(data.state === "RUNNING"){
+
+                button.disabled = true;
+
+                button.innerText =
+                    "⏳ Pipeline Running...";
+
+                document.getElementById(
+                    "pipelineMessage"
+                ).innerText =
+                    "Production lead collection is running.";
+
+            }
+            else{
+
+                button.disabled = false;
+
+                button.innerText =
+                    "▶ Run Production Pipeline";
+
+            }
+
+
+            // -----------------------------------------
+            // Completed result
+            // -----------------------------------------
+
+            if(
+                data.state === "COMPLETED"
+                &&
+                data.result
+            ){
+
+                document.getElementById(
+                    "pipelineResults"
+                ).style.display = "grid";
+
+
+                document.getElementById(
+                    "resultCollected"
+                ).innerText =
+                    data.result.collected ?? 0;
+
+
+                document.getElementById(
+                    "resultBuyerRejected"
+                ).innerText =
+                    data.result.buyer_intent_rejected ?? 0;
+
+
+                document.getElementById(
+                    "resultFitRejected"
+                ).innerText =
+                    data.result.business_fit_rejected ?? 0;
+
+
+                document.getElementById(
+                    "resultDuplicates"
+                ).innerText =
+                    data.result.duplicates ?? 0;
+
+
+                document.getElementById(
+                    "resultSaved"
+                ).innerText =
+                    data.result.saved ?? 0;
+
+
+                document.getElementById(
+                    "pipelineMessage"
+                ).innerText =
+                    "Production pipeline completed successfully.";
+
+            }
+
+
+            // -----------------------------------------
+            // Failed state
+            // -----------------------------------------
+
+            if(data.state === "FAILED"){
+
+                document.getElementById(
+                    "pipelineMessage"
+                ).innerText =
+                    "Pipeline failed: "
+                    + (data.error || "Unknown error");
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                "Pipeline status error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    async function runProductionPipeline(){
+
+        const button = document.getElementById(
+            "runPipelineButton"
+        );
+
+
+        button.disabled = true;
+
+        button.innerText =
+            "⏳ Starting Pipeline...";
+
+
+        try{
+
+            const response = await fetch(
+                "/run-production-pipeline",
+                {
+                    method:"POST"
+                }
+            );
+
+
+            const data = await response.json();
+
+
+            document.getElementById(
+                "pipelineMessage"
+            ).innerText =
+                data.message;
+
+
+            await loadPipelineStatus();
+
+        }
+        catch(error){
+
+            button.disabled = false;
+
+            button.innerText =
+                "▶ Run Production Pipeline";
+
+
+            document.getElementById(
+                "pipelineMessage"
+            ).innerText =
+                "Unable to start pipeline.";
+
+        }
+
+    }
+
+    // =====================================================
+    // SCRAPER HEALTH — STEP 4.3.4.6
+    // =====================================================
+
+    async function loadScraperHealth(){
+
+        try{
+
+            const response = await fetch(
+                "/scraper-health"
+            );
+
+            if(!response.ok){
+
+                throw new Error(
+                    `Health request failed: ${response.status}`
+                );
+
+            }
+
+            const data = await response.json();
+
+
+            // ---------------------------------------------
+            // Summary
+            // ---------------------------------------------
+
+            document.getElementById(
+                "scraperTotal"
+            ).innerText =
+                data.total_scrapers ?? 0;
+
+
+            document.getElementById(
+                "scraperHealthy"
+            ).innerText =
+                data.healthy ?? 0;
+
+
+            document.getElementById(
+                "scraperDegraded"
+            ).innerText =
+                data.degraded ?? 0;
+
+
+            document.getElementById(
+                "scraperFailed"
+            ).innerText =
+                data.failed ?? 0;
+
+
+            // ---------------------------------------------
+            // Cards
+            // ---------------------------------------------
+
+            const container =
+                document.getElementById(
+                    "scraperHealthContainer"
+                );
+
+
+            if(!data.scrapers || data.scrapers.length === 0){
+
+                container.innerHTML = `
+                    <div class="scraper-health-card">
+
+                        <strong>
+                            No scraper health data available
+                        </strong>
+
+                        <p style="margin-top:10px;">
+                            Run the production pipeline first.
+                        </p>
+
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                data.scrapers.map(scraper => {
+
+
+                    const status =
+                        scraper.status || "UNKNOWN";
+
+
+                    let statusClass =
+                        "health-degraded";
+
+
+                    let icon = "🟡";
+
+
+                    if(status === "HEALTHY"){
+
+                        statusClass =
+                            "health-healthy";
+
+                        icon = "🟢";
+
+                    }
+                    else if(status === "FAILED"){
+
+                        statusClass =
+                            "health-failed";
+
+                        icon = "🔴";
+
+                    }
+                    else if(status === "RUNNING"){
+
+                        statusClass =
+                            "health-running";
+
+                        icon = "🔵";
+
+                    }
+
+
+                    return `
+
+                        <div class="scraper-health-card">
+
+                            <div class="scraper-health-header">
+
+                                <h3>
+                                    ${escapeHtml(scraper.source)}
+                                </h3>
+
+                                <span
+                                    class="
+                                        scraper-health-status
+                                        ${statusClass}
+                                    "
+                                >
+                                    ${icon} ${status}
+                                </span>
+
+                            </div>
+
+
+                            <div class="scraper-health-details">
+
+                                <p>
+                                    <strong>
+                                        Leads Collected:
+                                    </strong>
+
+                                    ${scraper.leads_collected ?? 0}
+                                </p>
+
+
+                                <p>
+                                    <strong>
+                                        Last Run:
+                                    </strong>
+
+                                    ${
+                                        escapeHtml(
+                                            scraper.last_run || "-"
+                                        )
+                                    }
+                                </p>
+
+
+                                ${
+                                    scraper.error
+                                    ?
+                                    `
+                                    <p>
+                                        <strong>Error:</strong>
+
+                                        ${escapeHtml(scraper.error)}
+                                    </p>
+                                    `
+                                    :
+                                    `
+                                    <p>
+                                        <strong>Error:</strong>
+                                        None
+                                    </p>
+                                    `
+                                }
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }).join("");
+
+        }
+        catch(error){
+
+            console.error(
+                "Scraper health error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // Initial dashboard monitoring
+
+    loadPipelineStatus();
+
+    loadScraperHealth();
+
+    loadPipelineLogs();
+
+    loadDashboardPerformance();
+
+
+    // Refresh pipeline status every 5 seconds
+
+    setInterval(
+        loadPipelineStatus,
+        5000
+    );
+
+    // =====================================================
+    // PIPELINE LOGS — STEP 4.3.4.7
+    // =====================================================
+
+    async function loadPipelineLogs() {
+
+        const viewer = document.getElementById(
+            "pipelineLogViewer"
+        );
+
+        if (!viewer) {
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                "/pipeline-logs?limit=50"
+            );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `HTTP ${response.status}`
+                );
+
+            }
+
+            const data = await response.json();
+
+            const logs = data.logs || [];
+
+            viewer.innerHTML = "";
+
+
+            // ---------------------------------------------
+            // No logs
+            // ---------------------------------------------
+
+            if (logs.length === 0) {
+
+                viewer.innerHTML = `
+                    <div class="pipeline-log-empty">
+                        No pipeline logs available.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            // ---------------------------------------------
+            // Render logs
+            // ---------------------------------------------
+
+            logs.forEach(log => {
+
+                const line = document.createElement(
+                    "div"
+                );
+
+                line.className =
+                    "pipeline-log-line";
+
+
+                if (log.includes("ERROR")) {
+
+                    line.classList.add(
+                        "pipeline-log-error"
+                    );
+
+                }
+
+                else if (log.includes("WARNING")) {
+
+                    line.classList.add(
+                        "pipeline-log-warning"
+                    );
+
+                }
+
+
+                // textContent prevents log content
+                // from being interpreted as HTML.
+
+                line.textContent = log;
+
+                viewer.appendChild(line);
+
+            });
+
+
+            // ---------------------------------------------
+            // Scroll to newest log
+            // ---------------------------------------------
+
+            viewer.scrollTop =
+                viewer.scrollHeight;
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Pipeline logs error:",
+                error
+            );
+
+            viewer.innerHTML = `
+                <div class="pipeline-log-error">
+                    Unable to load pipeline logs.
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    // Refresh scraper health every 5 seconds
+
+    setInterval(
+        loadScraperHealth,
+        5000
+    );
+
+    // =====================================================
+    // DASHBOARD PERFORMANCE — STEP 4.3.4.8.4
+    // =====================================================
+
+    async function loadDashboardPerformance() {
+
+        try {
+
+            const response = await fetch(
+                "/dashboard-performance"
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP ${response.status}`
+                );
+            }
+
+            const data = await response.json();
+
+
+            document.getElementById(
+                "performanceStatus"
+            ).innerText =
+                data.status || "NO DATA";
+
+
+            document.getElementById(
+                "performanceLast"
+            ).innerText =
+                data.last_response_time_ms != null
+                    ? `${data.last_response_time_ms} ms`
+                    : "-";
+
+
+            document.getElementById(
+                "performanceAverage"
+            ).innerText =
+                data.average_response_time_ms != null
+                    ? `${data.average_response_time_ms} ms`
+                    : "-";
+
+
+            document.getElementById(
+                "performanceFastest"
+            ).innerText =
+                data.fastest_response_time_ms != null
+                    ? `${data.fastest_response_time_ms} ms`
+                    : "-";
+
+
+            document.getElementById(
+                "performanceSlowest"
+            ).innerText =
+                data.slowest_response_time_ms != null
+                    ? `${data.slowest_response_time_ms} ms`
+                    : "-";
+
+
+            document.getElementById(
+                "performanceDetails"
+            ).innerText =
+                `Measured dashboard requests: ${
+                    data.dashboard_requests ?? 0
+                } | Last measured: ${
+                    data.last_measured_at || "-"
+                }`;
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Dashboard performance error:",
+                error
+            );
+
+            document.getElementById(
+                "performanceStatus"
+            ).innerText = "UNAVAILABLE";
+
+            document.getElementById(
+                "performanceDetails"
+            ).innerText =
+                "Unable to load performance metrics.";
+
+        }
+
+    }
+
+    // =====================================================
+    // LEAD SEARCH — STEP 4.3.4.5
+    // =====================================================
+
+    const searchInput = document.getElementById("searchInput");
+    const priorityFilter = document.getElementById("priorityFilter");
+
+    let searchTimer = null;
+
+        function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+
+    function safeUrl(value) {
+
+        if (!value) {
+            return "";
+        }
+
+        try {
+
+            const url = new URL(
+                value,
+                window.location.origin
+            );
+
+            if (
+                url.protocol !== "http:"
+                &&
+                url.protocol !== "https:"
+            ) {
+                return "";
+            }
+
+            return escapeHtml(url.href);
+
+        }
+        catch {
+
+            return "";
+
+        }
+
+    }
+
+    // -----------------------------------------------------
+    // Render API search results
+    // -----------------------------------------------------
+
+    function renderSearchResults(leads) {
+
+        const container =
+            document.getElementById("leadResults");
+
+        const resultCount =
+            document.getElementById("searchResultCount");
+
+        if (!container) {
+            console.error("leadResults container not found");
+            return;
+        }
+
+        if (resultCount) {
+
+            resultCount.innerText =
+                `Showing ${leads.length} opportunities`;
+
+        }
+
+
+        // -------------------------------------------------
+        // No results
+        // -------------------------------------------------
+
+        if (leads.length === 0) {
+
+            container.innerHTML = `
+                <div class="lead-card">
+                    <h2>No opportunities found</h2>
+                    <p style="margin-top:10px;color:#777;">
+                        Try another keyword or priority.
+                    </p>
+                </div>
+            `;
+
+            return;
+        }
+
+
+        // -------------------------------------------------
+        // Render cards
+        // -------------------------------------------------
+
+        container.innerHTML = leads.map(lead => {
+
+            const priority =
+                lead.commercial_priority || "LOW";
+
+            let badgeClass = "low-badge";
+            let badgeIcon = "⚪";
+
+
+            if (priority === "HOT") {
+
+                badgeClass = "hot-badge";
+                badgeIcon = "🔥";
+
+            }
+            else if (priority === "WARM") {
+
+                badgeClass = "warm-badge";
+                badgeIcon = "🟡";
+
+            }
+            else if (priority === "MEDIUM") {
+
+                badgeClass = "medium-badge";
+                badgeIcon = "🔵";
+
+            }
+
+
+            const title =
+                escapeHtml(lead.title || "Untitled");
+
+            const platform =
+                escapeHtml(lead.platform || "Unknown");
+
+            const service =
+                escapeHtml(
+                    lead.primary_service || "Unknown"
+                );
+
+            const budget =
+                escapeHtml(lead.budget || "Unknown");
+
+            const score =
+                lead.commercial_score || 0;
+
+            const buyerIntent =
+                lead.buyer_intent_score || 0;
+
+            const businessFit =
+                lead.business_fit_score || 0;
+
+            const link =
+                safeUrl(lead.link);
+
+
+            return `
+
+                <div
+                    class="lead-card searchable-card"
+                    data-priority="${priority}"
+                >
+
+                    <div class="lead-header">
+
+                        <div>
+
+                            <span class="badge ${badgeClass}">
+                                ${badgeIcon} ${priority}
+                            </span>
+
+                            <h2 style="margin-top:10px;">
+                                ${title}
+                            </h2>
+
+                        </div>
+
+                        <div class="score-circle">
+                            ${score}
+                        </div>
+
+                    </div>
+
+
+                    <div class="lead-grid">
+
+                        <div>
+                            <strong>Platform</strong>
+                            <p>${platform}</p>
+                        </div>
+
+                        <div>
+                            <strong>Service</strong>
+                            <p>${service}</p>
+                        </div>
+
+                        <div>
+                            <strong>Budget</strong>
+                            <p>${budget}</p>
+                        </div>
+
+                        <div>
+                            <strong>Buyer Intent</strong>
+                            <p>${buyerIntent}/100</p>
+                        </div>
+
+                        <div>
+                            <strong>Business Fit</strong>
+                            <p>${businessFit}/100</p>
+                        </div>
+
+                        <div>
+                            <strong>Commercial Score</strong>
+                            <p>${score}/100</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="button-row">
+
+                        ${
+                            link
+                            ?
+                            `
+                            <a
+                                href="${link}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn"
+                            >
+                                🌐 Open Project
+                            </a>
+                            `
+                            :
+                            ""
+                        }
+
+                        <a
+                            href="/lead-details/${lead.id}"
+                            class="btn"
+                        >
+                            📄 CRM Details
+                        </a>
+
+                        <a
+                            href="/crm-dashboard"
+                            class="btn"
+                        >
+                            CRM Dashboard
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+    }
+
+
+    // -----------------------------------------------------
+    // Search leads through production search API
+    // -----------------------------------------------------
+
+    async function searchProductionLeads() {
+
+        const keyword = searchInput
+            ? searchInput.value.trim()
+            : "";
+
+        const priority = priorityFilter
+            ? priorityFilter.value
+            : "";
+
+        const params = new URLSearchParams();
+
+        if (keyword) {
+            params.append("keyword", keyword);
+        }
+
+        if (priority) {
+            params.append("priority", priority);
+        }
+
+        try {
+
+            const response = await fetch(
+                `/search?${params.toString()}`
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    `Search request failed: ${response.status}`
+                );
+            }
+
+            const data = await response.json();
+
+            renderSearchResults(data.results || []);
+
+        } catch (error) {
+
+            console.error(
+                "Lead search failed:",
+                error
+            );
+
+        }
+    }
+
+
+    // -----------------------------------------------------
+    // Search while typing
+    // -----------------------------------------------------
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                clearTimeout(searchTimer);
+
+                searchTimer = setTimeout(
+                    searchProductionLeads,
+                    350
+                );
+
+            }
+        );
+
+    }
+
+
+    // -----------------------------------------------------
+    // Priority filter
+    // -----------------------------------------------------
+
+    if (priorityFilter) {
+
+        priorityFilter.addEventListener(
+            "change",
+            searchProductionLeads
+        );
+
+    }
+
+    </script>
+
+</body>
+</html>
